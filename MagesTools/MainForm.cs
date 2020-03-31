@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
 using fastJSON;
 
 using Mages.Script;
+using Mages.Package;
 
 namespace MagesTools
 {
@@ -21,7 +23,13 @@ namespace MagesTools
 
         public void Log(string data)
         {
-            textBox_log.AppendText(data);
+            textBox_log.AppendText(DateTime.Now.ToString("t") + " " + data + "\n");
+        }
+
+        public void Oops(Exception e)
+        {
+            Log(e.ToString());
+            MessageBox.Show(e.ToString(), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void button_scx_load_Click(object sender, EventArgs e)
@@ -54,15 +62,26 @@ namespace MagesTools
                 }
                 File.WriteAllText("R:/patch.log", sb.ToString());
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { Oops(ex); }
         }
 
         private void button_mpk_pack_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                var mpk = new MPK();
+                foreach (var file in Directory.GetFiles(textBox_mpk_pack_input.Text).OrderBy(f => f))
+                {
+                    mpk.Entries.Add(new MPKEntry(new FileInfo(file).Length, Path.GetFileName(file), () => File.OpenRead(file)));
+                }
+                Log("[MPK Pack] Created " + mpk.Entries.Count + " entries.");
+                using (var writer = new BinaryWriter(File.Open(textBox_mpk_pack_output.Text, FileMode.Create)))
+                {
+                    mpk.Write(writer);
+                    Log("[MPK Pack] Write success, size: " + writer.BaseStream.Position + ".");
+                }
+            }
+            catch (Exception ex) { Oops(ex); }
         }
     }
 }

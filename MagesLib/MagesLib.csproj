@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Package\MPK.cs" />
+    <Compile Include="Package\MPKEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\SCX.cs" />
     <Compile Include="Script\SCXWriter.cs" />
