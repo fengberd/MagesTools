@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Mages.SCX.Tokens
+namespace Mages.Script.Tokens
 {
     public class ExpressionToken : Token
     {
@@ -46,7 +45,7 @@ namespace Mages.SCX.Tokens
             }
         }
 
-        public override void Encode(BinaryWriter target)
+        public override void Encode(SCXWriter target)
         {
             base.Encode(target);
             target.Write(Value.ToArray());

@@ -1,18 +1,9 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 
-namespace Mages.SCX.Tokens
+namespace Mages.Script.Tokens
 {
     public class TextToken : Token
     {
-        public static string Charset = null;
-        public static string CharsetEncode = null;
-
-        static TextToken()
-        {
-            Charset = File.ReadAllText("R:/charset.utf8", Encoding.UTF8);
-        }
-
         public string Value;
 
         public TextToken(SCXReader reader) : base(TokenType.TextMask)
@@ -31,26 +22,21 @@ namespace Mages.SCX.Tokens
                     reader.BaseStream.Position--;
                     break;
                 }
-                int code = ((next & ~(byte)TokenType.TextMask) << 8) | reader.ReadByte();
-                sb.Append(Charset[code]);
+                sb.Append(reader.ReadChar(next));
             }
             Value = sb.ToString();
         }
 
-        public override void Encode(BinaryWriter target)
+        public override void Encode(SCXWriter target)
         {
-            // TODO: \n
             foreach (var c in Value)
             {
-                for (int i = 0; i < CharsetEncode.Length; i++)
+                if (c == '\n')
                 {
-                    if (CharsetEncode[i] == c)
-                    {
-                        target.Write((byte)((i >> 8) | (byte)TokenType.TextMask));
-                        target.Write((byte)i);
-                        break;
-                    }
+                    target.Write(TokenType.LineBreak);
+                    continue;
                 }
+                target.WriteChar(c);
             }
         }
 

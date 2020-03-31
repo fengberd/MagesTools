@@ -42,13 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SCX\SCXReader.cs" />
-    <Compile Include="SCX\SCXString.cs" />
-    <Compile Include="SCX\Tokens\ExpressionToken.cs" />
-    <Compile Include="SCX\Tokens\ShortToken.cs" />
-    <Compile Include="SCX\Tokens\TextToken.cs" />
-    <Compile Include="SCX\Tokens\Token.cs" />
-    <Compile Include="SCX\Tokens\TokenType.cs" />
+    <Compile Include="Script\SCX.cs" />
+    <Compile Include="Script\SCXWriter.cs" />
+    <Compile Include="Script\SCXReader.cs" />
+    <Compile Include="Script\SCXString.cs" />
+    <Compile Include="Script\Tokens\ExpressionToken.cs" />
+    <Compile Include="Script\Tokens\ShortToken.cs" />
+    <Compile Include="Script\Tokens\TextToken.cs" />
+    <Compile Include="Script\Tokens\Token.cs" />
+    <Compile Include="Script\Tokens\TokenType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

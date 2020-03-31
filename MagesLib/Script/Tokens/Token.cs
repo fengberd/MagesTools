@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Mages.SCX.Tokens
+﻿namespace Mages.Script.Tokens
 {
     public class Token
     {
@@ -11,7 +9,7 @@ namespace Mages.SCX.Tokens
             Type = type;
         }
 
-        public virtual void Encode(BinaryWriter target) => target.Write((byte)Type);
+        public virtual void Encode(SCXWriter target) => target.Write(Type);
 
         public override string ToString() => "[" + Type.ToString() + "]";
     }

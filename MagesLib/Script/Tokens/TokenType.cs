@@ -1,4 +1,4 @@
-﻿namespace Mages.SCX.Tokens
+﻿namespace Mages.Script.Tokens
 {
     public enum TokenType
     {

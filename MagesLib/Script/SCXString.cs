@@ -1,11 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-using Mages.SCX.Tokens;
+using Mages.Script.Tokens;
 
-namespace Mages.SCX
+namespace Mages.Script
 {
     public class SCXString
     {
@@ -45,26 +44,21 @@ namespace Mages.SCX
                 case TokenType.Terminator:
                     return;
                 case TokenType.LineBreak:
-                    CreateText(reader);
-                    break;
+                    goto CREATE_TEXT;
                 default:
                     if ((type & TokenType.TextMask) == 0)
                     {
                         throw new Exception("Unexpected token");
                     }
-                    CreateText(reader);
+                CREATE_TEXT:
+                    reader.BaseStream.Position--;
+                    Tokens.Add(new TextToken(reader));
                     break;
                 }
             }
         }
 
-        private void CreateText(SCXReader reader)
-        {
-            reader.BaseStream.Position--;
-            Tokens.Add(new TextToken(reader));
-        }
-
-        public void Encode(BinaryWriter target)
+        public void Encode(SCXWriter target)
         {
             foreach (var t in Tokens)
             {

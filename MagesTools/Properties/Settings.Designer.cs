@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mages.Properties
+namespace MagesTools.Properties
 {
 
 

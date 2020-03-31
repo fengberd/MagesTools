@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Mages.SCX.Tokens
+﻿namespace Mages.Script.Tokens
 {
     class ShortToken : Token
     {
@@ -11,7 +9,7 @@ namespace Mages.SCX.Tokens
             Value = value;
         }
 
-        public override void Encode(BinaryWriter target)
+        public override void Encode(SCXWriter target)
         {
             base.Encode(target);
             target.Write(Value);
