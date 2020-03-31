@@ -15,15 +15,22 @@ namespace Mages.Script
             reader.BaseStream.Position = pos;
 
             int i = 0;
-            var offset = new List<uint>();
+            var offset = new List<uint?>();
             foreach (IList<object> transform in data)
             {
-                SCXString str;
-                do
+                SCXString str = reader.ReadString(i++);
+                while (str.IsEmpty)
                 {
+                    offset.Add(null);
+                    logger?.AppendLine(i + ":").AppendLine(str.ToString()).AppendLine("------(Skipped)");
                     str = reader.ReadString(i++);
-                } while (str.Tokens.Count == 0);
-
+                }
+                if (transform == null)
+                {
+                    offset.Add(null);
+                    logger?.AppendLine(i + ":").AppendLine(str.ToString()).AppendLine("------(Null Transform)");
+                    continue;
+                }
                 if (logger != null)
                 {
                     logger.AppendLine(i + ":");
@@ -58,7 +65,14 @@ namespace Mages.Script
             writer.BaseStream.Position = reader.StringTable;
             foreach (var o in offset)
             {
-                writer.Write(o);
+                if (o == null)
+                {
+                    writer.BaseStream.Seek(4, System.IO.SeekOrigin.Current);
+                }
+                else
+                {
+                    writer.Write(o.Value);
+                }
             }
             return true;
         }

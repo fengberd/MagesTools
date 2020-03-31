@@ -7,10 +7,9 @@
         Present = 0b00000011,
         Present_ResetAlignment = 0b00001000,
         RubyBase = 0b00001001,
-        WTFToken = 0b00001101, // Can be achievement or wtf
-        WTFToken2 = 0b00001110,
         RubyTextStart = 0b00001010,
         RubyTextEnd = 0b00001011,
+        WTFToken = 0b00001110,
         SetAlignment_Center = 0b00001111,
 
         SetFontSize = 0b00001100,

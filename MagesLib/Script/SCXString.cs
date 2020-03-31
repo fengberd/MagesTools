@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Linq;
 using System.Collections.Generic;
 
 using Mages.Script.Tokens;
@@ -8,6 +9,8 @@ namespace Mages.Script
 {
     public class SCXString
     {
+        public bool IsEmpty => !Tokens.Any(s => s is TextToken);
+
         public List<Token> Tokens = new List<Token>();
 
         public SCXString(SCXReader reader)
@@ -24,11 +27,8 @@ namespace Mages.Script
                 case TokenType.RubyBase:
                 case TokenType.RubyTextStart:
                 case TokenType.RubyTextEnd:
-                case TokenType.SetAlignment_Center:
-                case TokenType.WTFToken2:
-                    Tokens.Add(new Token(type));
-                    break;
                 case TokenType.WTFToken:
+                case TokenType.SetAlignment_Center:
                     Tokens.Add(new Token(type));
                     break;
                 case TokenType.SetFontSize:
