@@ -40,7 +40,8 @@ namespace MagesTools
                 var files = new List<string>();
                 if (Directory.Exists(textBox_scx_export.Text))
                 {
-                    files.AddRange(Directory.GetFiles(textBox_scx_export.Text));
+                    files.AddRange(Directory.GetFiles(textBox_scx_export.Text)
+                        .Where(f => f.EndsWith(".scx", StringComparison.CurrentCultureIgnoreCase)));
                 }
                 else
                 {
@@ -125,7 +126,36 @@ namespace MagesTools
 
         private void button_mpk_unpack_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var files = new List<string>();
+                if (Directory.Exists(textBox_mpk_unpack_input.Text))
+                {
+                    files.AddRange(Directory.GetFiles(textBox_mpk_unpack_input.Text)
+                        .Where(f => f.EndsWith(".mpk", StringComparison.CurrentCultureIgnoreCase)));
+                }
+                else
+                {
+                    files.Add(textBox_mpk_unpack_input.Text);
+                }
+                foreach (var file in files)
+                {
+                    Log("[MPK Unpack] Unpacking " + Path.GetFileName(file) + " ...");
+                    var output = Path.Combine(textBox_mpk_unpack_output.Text, Path.GetFileNameWithoutExtension(file));
+                    Directory.CreateDirectory(output);
+                    using (var reader = new BinaryReader(File.OpenRead(file)))
+                    {
+                        var mpk = MPK.ReadFile(reader);
+                        Log("[MPK Unpack] Found " + mpk.Entries.Count + " entries.");
+                        foreach (var entry in mpk.Entries)
+                        {
+                            Log("[MPK Unpack] Unpacking " + entry.Name + "(" + entry.Size + ") ...");
+                            File.WriteAllBytes(Path.Combine(output, entry.Name), entry.Data);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Oops(ex); }
         }
 
         private void button_mpk_pack_Click(object sender, EventArgs e)
@@ -139,7 +169,7 @@ namespace MagesTools
                     {
                         continue;
                     }
-                    mpk.Entries.Add(new MPKEntry(new FileInfo(file).Length, Path.GetFileName(file), () => File.OpenRead(file)));
+                    mpk.Entries.Add(new MPKEntry(Path.GetFileName(file), File.ReadAllBytes(file)));
                 }
                 Log("[MPK Pack] Created " + mpk.Entries.Count + " entries.");
                 var target = textBox_mpk_pack_output.Text;
