@@ -51,7 +51,7 @@ namespace Mages.Package
             for (int i = 0; i < count; i++)
             {
                 reader.BaseStream.Position = offsets[i];
-                result.Entries[i].Data = reader.ReadBytes(result.Entries[i].Size);
+                result.Entries[i].SetData(reader.ReadBytes(result.Entries[i].Size));
             }
             return result;
         }

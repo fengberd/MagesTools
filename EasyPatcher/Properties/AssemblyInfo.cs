@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Mages Tools")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Easy Patcher")]
+[assembly: AssemblyDescription("Mages 全自动补丁工具")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FENGberd")]
-[assembly: AssemblyProduct("MagesTools")]
+[assembly: AssemblyProduct("EasyPatcher")]
 [assembly: AssemblyCopyright("Copyright © FENGberd 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("344d820f-948c-4108-bdfe-00765ec00163")]
+[assembly: Guid("b49121ca-3649-494f-a07a-497ad173d8ac")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
