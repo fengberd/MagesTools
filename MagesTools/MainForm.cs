@@ -76,15 +76,34 @@ namespace MagesTools
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString(), "LOL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Log(ex.Message);
                         }
                         patch.Add(Path.GetFileNameWithoutExtension(file), result);
                     }
                 }
-                textBox_log.Text = JSON.ToNiceJSON(patch, new JSONParameters()
+                var save = new SaveFileDialog
                 {
-                    UseEscapedUnicode = false
-                });
+                    Filter = "JSON|*.json",
+                    DefaultExt = "log",
+                    CheckPathExists = true
+                };
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    using (var writer = new StreamWriter(save.OpenFile()))
+                    {
+                        writer.Write(JSON.ToNiceJSON(patch, new JSONParameters()
+                        {
+                            UseEscapedUnicode = false
+                        }));
+                    }
+                }
+                else
+                {
+                    textBox_log.Text = JSON.ToNiceJSON(patch, new JSONParameters()
+                    {
+                        UseEscapedUnicode = false
+                    });
+                }
             }
             catch (Exception ex) { Oops(ex); }
         }
