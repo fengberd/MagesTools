@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Reflection;
 using System.Windows.Forms;
+using System.IO.Compression;
 using System.Collections.Generic;
 
 using fastJSON;
@@ -16,6 +17,8 @@ namespace EasyPatcher
 {
     public partial class MainForm : Form
     {
+        public const string PATCH_DIR = "berd/";
+
         public MainForm()
         {
             InitializeComponent();
@@ -31,6 +34,57 @@ namespace EasyPatcher
         {
             Log(e);
             MessageBox.Show(e, "致命错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public bool patchSCX(Dictionary<string, MPKEntry> mpk, string charset, Dictionary<string, dynamic> scx)
+        {
+            Log("[SCX] 正在应用 SCX 补丁...");
+            foreach (KeyValuePair<string, dynamic> kv in scx)
+            {
+                if (!mpk.ContainsKey(kv.Key))
+                {
+                    Oops("[SCX] 无法找到文件 " + kv.Key);
+                    return false;
+                }
+                Log("[SCX] 正在对 " + kv.Key + " 应用补丁...");
+
+                using (var ms = new MemoryStream())
+                using (var reader = new SCXReader(mpk[kv.Key].Data, charset))
+                using (var writer = new SCXWriter(ms, charset))
+                {
+                    var sb = new StringBuilder();
+                    if (!SCX.ApplyPatch(kv.Value, reader, writer, sb))
+                    {
+                        Log(sb.ToString());
+                        Oops("[SCX] 补丁应用失败");
+                        return false;
+                    }
+                    mpk[kv.Key].SetData(ms.ToArray());
+                }
+            }
+            return true;
+        }
+
+        public bool patchFile(Dictionary<string, MPKEntry> mpk, Dictionary<string, dynamic> data)
+        {
+            Log("[FILE] 正在应用文件补丁...");
+            foreach (KeyValuePair<string, dynamic> kv in data)
+            {
+                if (!mpk.ContainsKey(kv.Key))
+                {
+                    Log("[FILE] 无法找到文件 " + kv.Key);
+                    continue;
+                }
+                Log("[FILE] 正在替换文件 " + kv.Key + " ...");
+                using (var ms = new MemoryStream(Convert.FromBase64String(kv.Value)))
+                using (var gzip = new GZipStream(ms, CompressionMode.Decompress))
+                using (var output = new MemoryStream())
+                {
+                    gzip.CopyTo(output);
+                    mpk[kv.Key].SetData(output.ToArray());
+                }
+            }
+            return true;
         }
 
         private void textBox_path_DragOver(object sender, DragEventArgs e)
@@ -63,10 +117,10 @@ namespace EasyPatcher
                 try
                 {
                     var usrdir = Path.Combine(textBox_path.Text, "USRDIR");
-                    Log("[MPK] 正在寻找 USRDIR...");
+                    Log("[BERD] 正在寻找 USRDIR...");
                     if (!Directory.Exists(usrdir))
                     {
-                        Oops("[MPK] USRDIR 不存在, 请检查你的目录设置.");
+                        Oops("[BERD] USRDIR 不存在, 请检查你的目录设置.");
                         Invoke(new Action(() => button_patch.Enabled = true));
                         return;
                     }
@@ -74,76 +128,56 @@ namespace EasyPatcher
                     var bakdir = usrdir + ".bak";
                     if (!Directory.Exists(bakdir))
                     {
-                        Log("[MPK] 备份文件夹不存在, 创建中...");
+                        Log("[BERD] 备份文件夹不存在, 创建中...");
                         Directory.CreateDirectory(bakdir);
                     }
 
-                    var MPKs = new Dictionary<string, MPK>();
-                    var mpkFiles = new string[] { "script.mpk", "system.mpk" };
-                    foreach (var file in mpkFiles)
+                    foreach (var patch in Directory.GetFiles(PATCH_DIR, "*.json").Select(p => JSON.ToObject<Dictionary<string, dynamic>>(File.ReadAllText(p))))
                     {
+                        string file = patch["file"];
                         if (!File.Exists(Path.Combine(bakdir, file)))
                         {
-                            Log("[MPK] 正在备份 " + file + "...");
+                            Log("[BERD] 正在备份 " + file + "...");
                             File.Copy(Path.Combine(usrdir, file), Path.Combine(bakdir, file));
                         }
+
+                        MPK mpk = null;
                         Log("[MPK] 正在加载 " + file + "...");
                         using (var reader = new BinaryReader(File.OpenRead(Path.Combine(bakdir, file))))
                         {
-                            MPKs.Add(file, MPK.ReadFile(reader));
+                            mpk = MPK.ReadFile(reader);
                         }
-                    }
 
-                    Log("[SYS] 正在应用字库补丁...");
-                    var system = MPKs["system.mpk"].Entries.ToDictionary(k => k.Name, v => v);
-                    system["FONT.DDS"].SetData(File.ReadAllBytes("berd/FONT.DDS"));
-                    system["FONT2.DDS"].SetData(File.ReadAllBytes("berd/FONT2.DDS"));
-                    system["OPTION.DDS"].SetData(File.ReadAllBytes("berd/OPTION.DDS"));
-
-                    Log("[SCX] 初始化 SCX 补丁过程...");
-                    var patch = JSON.ToObject<Dictionary<string, dynamic>>(File.ReadAllText("berd/patch.json"));
-                    if (!patch.ContainsKey("scx") || !(patch["scx"] is Dictionary<string, dynamic> scx))
-                    {
-                        Oops("[SCX] 补丁数据加载失败");
-                        return;
-                    }
-                    var script = MPKs["script.mpk"].Entries.ToDictionary(k => k.Name, v => v);
-                    string charset = patch["charset_preset"] + patch["charset"];
-                    foreach (KeyValuePair<string, object> kv in scx)
-                    {
-                        if (!script.ContainsKey(kv.Key + ".SCX"))
+                        var entries = mpk.Entries.ToDictionary(k => k.Name, v => v);
+                        switch (patch["type"])
                         {
-                            Log("[SCX] 无法找到文件 " + kv.Key + ".SCX");
-                            continue;
-                        }
-                        Log("[SCX] 正在对 " + kv.Key + ".SCX 应用补丁...");
-
-                        using (var ms = new MemoryStream())
-                        using (var reader = new SCXReader(script[kv.Key + ".SCX"].Data, charset))
-                        using (var writer = new SCXWriter(ms, charset))
-                        {
-                            var sb = new StringBuilder();
-                            if (!SCX.ApplyPatch((IList<object>)kv.Value, reader, writer, sb))
+                        case "scx":
+                            if (!patchSCX(entries, patch["charset_preset"] + patch["charset"], patch["data"]))
                             {
-                                Log(sb.ToString());
-                                Oops("[SCX] 补丁应用失败");
                                 return;
                             }
-                            script[kv.Key + ".SCX"].SetData(ms.ToArray());
+                            break;
+                        case "file":
+                            if (!patchFile(entries, patch["data"]))
+                            {
+                                return;
+                            }
+                            break;
+                        default:
+                            Oops("未知补丁类型");
+                            Invoke(new Action(() => button_patch.Enabled = true));
+                            return;
                         }
-                    }
 
-                    foreach (var mpk in MPKs)
-                    {
-                        Log("[MPK] 正在重新打包 " + mpk.Key + "...");
-                        using (var writer = new BinaryWriter(File.Open(Path.Combine(usrdir, mpk.Key), FileMode.Create)))
+                        Log("[MPK] 正在打包 " + file + "...");
+                        using (var writer = new BinaryWriter(File.Open(Path.Combine(usrdir, file), FileMode.Create)))
                         {
-                            mpk.Value.Write(writer);
+                            mpk.Write(writer);
                             Log("[MPK] 打包成功: " + writer.BaseStream.Position);
                         }
                     }
 
-                    MessageBox.Show("补丁操作完成, 请检查游戏是否能正常运行", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("补丁应用完成, 请检查游戏是否能正常运行", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Log("[FENGberd] 操作完成, 请检查游戏是否能正常运行");
                 }
                 catch (Exception ex)

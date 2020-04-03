@@ -134,7 +134,7 @@ namespace MagesTools
             try
             {
                 var patch = JSON.ToObject<Dictionary<string, dynamic>>(File.ReadAllText(textBox_scx_patch.Text));
-                if (!patch.ContainsKey("scx") || !(patch["scx"] is Dictionary<string, dynamic> scx))
+                if (!patch.ContainsKey("data") || !(patch["data"] is Dictionary<string, dynamic> scx))
                 {
                     throw new Exception("Bad patch file: Key scx not found or not dictionary");
                 }
@@ -142,7 +142,7 @@ namespace MagesTools
                 string charset = patch["charset_preset"] + patch["charset"];
                 foreach (KeyValuePair<string, object> kv in scx)
                 {
-                    string target = Path.Combine(textBox_scx_target.Text, kv.Key + ".SCX");
+                    string target = Path.Combine(textBox_scx_target.Text, kv.Key);
                     if (!File.Exists(target + ".bak"))
                     {
                         continue;
