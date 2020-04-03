@@ -110,7 +110,7 @@
             this.textBox_scx_target.Name = "textBox_scx_target";
             this.textBox_scx_target.Size = new System.Drawing.Size(422, 21);
             this.textBox_scx_target.TabIndex = 2;
-            this.textBox_scx_target.Text = "D:/Workspace/SG/script/";
+            this.textBox_scx_target.Text = "D:/Workspace/MDE/script/";
             this.textBox_scx_target.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_scx_target.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
@@ -140,7 +140,7 @@
             this.textBox_scx_patch.Name = "textBox_scx_patch";
             this.textBox_scx_patch.Size = new System.Drawing.Size(422, 21);
             this.textBox_scx_patch.TabIndex = 0;
-            this.textBox_scx_patch.Text = "D:/VMShared/sg-phngrm-1.2-pc/game/src/patch.json";
+            this.textBox_scx_patch.Text = "../../../Scripts/local/script.json";
             this.textBox_scx_patch.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_scx_patch.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
@@ -174,7 +174,7 @@
             this.textBox_scx_charset.Name = "textBox_scx_charset";
             this.textBox_scx_charset.Size = new System.Drawing.Size(416, 21);
             this.textBox_scx_charset.TabIndex = 12;
-            this.textBox_scx_charset.Text = "R:/charset.utf8";
+            this.textBox_scx_charset.Text = "../../../Scripts/local/charset.utf8";
             this.textBox_scx_charset.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_scx_charset.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
@@ -204,7 +204,6 @@
             this.textBox_scx_export.Name = "textBox_scx_export";
             this.textBox_scx_export.Size = new System.Drawing.Size(416, 21);
             this.textBox_scx_export.TabIndex = 9;
-            this.textBox_scx_export.Text = "D:/Workspace/SG/script/";
             this.textBox_scx_export.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_scx_export.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
@@ -282,7 +281,7 @@
             this.textBox_mpk_pack_output.Name = "textBox_mpk_pack_output";
             this.textBox_mpk_pack_output.Size = new System.Drawing.Size(422, 21);
             this.textBox_mpk_pack_output.TabIndex = 7;
-            this.textBox_mpk_pack_output.Text = "G:/Steam/steamapps/common/SG_Phenogram/USRDIR/";
+            this.textBox_mpk_pack_output.Text = "G:/Steam/steamapps/common/SG_My Darling\'s Embrace/USRDIR/";
             this.textBox_mpk_pack_output.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_mpk_pack_output.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
@@ -302,7 +301,7 @@
             this.textBox_mpk_pack_input.Name = "textBox_mpk_pack_input";
             this.textBox_mpk_pack_input.Size = new System.Drawing.Size(407, 21);
             this.textBox_mpk_pack_input.TabIndex = 5;
-            this.textBox_mpk_pack_input.Text = "D:/Workspace/SG/script";
+            this.textBox_mpk_pack_input.Text = "D:/Workspace/MDE/script";
             this.textBox_mpk_pack_input.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
             this.textBox_mpk_pack_input.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 

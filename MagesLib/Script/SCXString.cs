@@ -28,6 +28,7 @@ namespace Mages.Script
                 case TokenType.RubyTextStart:
                 case TokenType.RubyTextEnd:
                 case TokenType.WTFToken:
+                case TokenType.WTFToken2:
                 case TokenType.SetAlignment_Center:
                     Tokens.Add(new Token(type));
                     break;

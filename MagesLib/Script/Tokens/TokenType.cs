@@ -10,6 +10,7 @@
         RubyTextStart = 0b00001010,
         RubyTextEnd = 0b00001011,
         WTFToken = 0b00001110,
+        WTFToken2 = 0b00011000,
         SetAlignment_Center = 0b00001111,
 
         SetFontSize = 0b00001100,

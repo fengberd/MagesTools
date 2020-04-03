@@ -99,7 +99,7 @@ namespace MagesTools
                         {
                             Log(ex.Message);
                         }
-                        patch.Add(Path.GetFileNameWithoutExtension(file), result);
+                        patch.Add(Path.GetFileName(file), result);
                     }
                 }
                 var save = new SaveFileDialog
@@ -158,7 +158,8 @@ namespace MagesTools
                     }
                 }
                 sb.Append("\n");
-                textBox_log.Text = sb.ToString();
+                textBox_log.Clear();
+                textBox_log.AppendText(sb.ToString());
                 File.WriteAllText("R:/patch.log", sb.ToString());
             }
             catch (Exception ex) { Oops(ex); }
