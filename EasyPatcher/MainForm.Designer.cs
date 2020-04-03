@@ -36,11 +36,13 @@
             this.button_select = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.linkLabel_version = new System.Windows.Forms.LinkLabel();
+            this.pictureBox_main = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_main)).BeginInit();
             this.SuspendLayout();
             // 
             // button_patch
             // 
-            this.button_patch.Location = new System.Drawing.Point(401, 39);
+            this.button_patch.Location = new System.Drawing.Point(347, 39);
             this.button_patch.Name = "button_patch";
             this.button_patch.Size = new System.Drawing.Size(75, 23);
             this.button_patch.TabIndex = 2;
@@ -53,9 +55,8 @@
             this.textBox_path.AllowDrop = true;
             this.textBox_path.Location = new System.Drawing.Point(77, 12);
             this.textBox_path.Name = "textBox_path";
-            this.textBox_path.Size = new System.Drawing.Size(442, 21);
+            this.textBox_path.Size = new System.Drawing.Size(388, 21);
             this.textBox_path.TabIndex = 0;
-            this.textBox_path.Text = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SG_Phenogram";
             this.textBox_path.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_path_DragDrop);
             this.textBox_path.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_path_DragOver);
             // 
@@ -68,12 +69,12 @@
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_log.Size = new System.Drawing.Size(545, 257);
+            this.textBox_log.Size = new System.Drawing.Size(491, 230);
             this.textBox_log.TabIndex = 4;
             // 
             // button_save
             // 
-            this.button_save.Location = new System.Drawing.Point(482, 39);
+            this.button_save.Location = new System.Drawing.Point(428, 39);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(75, 23);
             this.button_save.TabIndex = 3;
@@ -92,7 +93,7 @@
             // 
             // button_select
             // 
-            this.button_select.Location = new System.Drawing.Point(525, 12);
+            this.button_select.Location = new System.Drawing.Point(471, 12);
             this.button_select.Name = "button_select";
             this.button_select.Size = new System.Drawing.Size(32, 21);
             this.button_select.TabIndex = 1;
@@ -116,11 +117,20 @@
             this.linkLabel_version.Text = "Version";
             this.linkLabel_version.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_version_LinkClicked);
             // 
+            // pictureBox_main
+            // 
+            this.pictureBox_main.Location = new System.Drawing.Point(509, 12);
+            this.pictureBox_main.Name = "pictureBox_main";
+            this.pictureBox_main.Size = new System.Drawing.Size(368, 286);
+            this.pictureBox_main.TabIndex = 6;
+            this.pictureBox_main.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 337);
+            this.ClientSize = new System.Drawing.Size(889, 310);
+            this.Controls.Add(this.pictureBox_main);
             this.Controls.Add(this.linkLabel_version);
             this.Controls.Add(this.button_select);
             this.Controls.Add(this.label1);
@@ -133,6 +143,7 @@
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "Mages 全自动补丁工具";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_main)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +159,6 @@
         private System.Windows.Forms.Button button_select;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.LinkLabel linkLabel_version;
+        private System.Windows.Forms.PictureBox pictureBox_main;
     }
 }

@@ -23,6 +23,10 @@ namespace EasyPatcher
         {
             InitializeComponent();
             linkLabel_version.Text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var meta = JSON.ToObject<Dictionary<string, dynamic>>(File.ReadAllText(PATCH_DIR + "meta.json"));
+            Text += " - " + meta["name"];
+            textBox_path.Text = meta["default_path"];
+            pictureBox_main.ImageLocation = Path.GetFullPath(PATCH_DIR + meta["image"]);
         }
 
         public void Log(string data)
@@ -134,6 +138,10 @@ namespace EasyPatcher
 
                     foreach (var patch in Directory.GetFiles(PATCH_DIR, "*.json").Select(p => JSON.ToObject<Dictionary<string, dynamic>>(File.ReadAllText(p))))
                     {
+                        if (!patch.ContainsKey("file"))
+                        {
+                            continue;
+                        }
                         string file = patch["file"];
                         if (!File.Exists(Path.Combine(bakdir, file)))
                         {
