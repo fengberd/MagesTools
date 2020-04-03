@@ -33,6 +33,27 @@ namespace EasyPatcher
             MessageBox.Show(e, "致命错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void textBox_path_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) || e.Data.GetDataPresent(DataFormats.Text))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void textBox_path_DragDrop(object sender, DragEventArgs e)
+        {
+            var box = sender as TextBox;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                box.Text = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                box.Text = e.Data.GetData(DataFormats.Text) as string;
+            }
+        }
+
         private void button_patch_Click(object sender, EventArgs e)
         {
             textBox_log.Clear();
@@ -41,7 +62,7 @@ namespace EasyPatcher
             {
                 try
                 {
-                    var usrdir = Path.Combine(textBox1.Text, "USRDIR");
+                    var usrdir = Path.Combine(textBox_path.Text, "USRDIR");
                     Log("[MPK] 正在寻找 USRDIR...");
                     if (!Directory.Exists(usrdir))
                     {
@@ -155,7 +176,7 @@ namespace EasyPatcher
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox1.Text = folderBrowserDialog1.SelectedPath;
+                textBox_path.Text = folderBrowserDialog1.SelectedPath;
             }
         }
 

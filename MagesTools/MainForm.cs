@@ -33,6 +33,27 @@ namespace MagesTools
             MessageBox.Show(e.ToString(), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void textBox_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) || e.Data.GetDataPresent(DataFormats.Text))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void textBox_DragDrop(object sender, DragEventArgs e)
+        {
+            var box = sender as TextBox;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                box.Text = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                box.Text = e.Data.GetData(DataFormats.Text) as string;
+            }
+        }
+
         private void button_scx_export_Click(object sender, EventArgs e)
         {
             try

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.button_patch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_path = new System.Windows.Forms.TextBox();
             this.textBox_log = new System.Windows.Forms.TextBox();
             this.button_save = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,13 +48,16 @@
             this.button_patch.UseVisualStyleBackColor = true;
             this.button_patch.Click += new System.EventHandler(this.button_patch_Click);
             // 
-            // textBox1
+            // textBox_path
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(442, 21);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SG_Phenogram";
+            this.textBox_path.AllowDrop = true;
+            this.textBox_path.Location = new System.Drawing.Point(77, 12);
+            this.textBox_path.Name = "textBox_path";
+            this.textBox_path.Size = new System.Drawing.Size(442, 21);
+            this.textBox_path.TabIndex = 0;
+            this.textBox_path.Text = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SG_Phenogram";
+            this.textBox_path.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_path_DragDrop);
+            this.textBox_path.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_path_DragOver);
             // 
             // textBox_log
             // 
@@ -123,7 +126,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_save);
             this.Controls.Add(this.textBox_log);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox_path);
             this.Controls.Add(this.button_patch);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -138,7 +141,7 @@
         #endregion
 
         private System.Windows.Forms.Button button_patch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_path;
         private System.Windows.Forms.TextBox textBox_log;
         private System.Windows.Forms.Button button_save;
         private System.Windows.Forms.Label label1;

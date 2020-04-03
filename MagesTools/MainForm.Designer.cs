@@ -44,6 +44,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox_mpk_pack_ignore_bak = new System.Windows.Forms.CheckBox();
             this.button_mpk_pack = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox_mpk_pack_output = new System.Windows.Forms.TextBox();
@@ -56,7 +57,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBox_mpk_unpack_input = new System.Windows.Forms.TextBox();
             this.textBox_log = new System.Windows.Forms.TextBox();
-            this.checkBox_mpk_pack_ignore_bak = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -105,11 +105,14 @@
             // 
             // textBox_scx_target
             // 
+            this.textBox_scx_target.AllowDrop = true;
             this.textBox_scx_target.Location = new System.Drawing.Point(59, 47);
             this.textBox_scx_target.Name = "textBox_scx_target";
             this.textBox_scx_target.Size = new System.Drawing.Size(422, 21);
             this.textBox_scx_target.TabIndex = 2;
             this.textBox_scx_target.Text = "D:/Workspace/SG/script/";
+            this.textBox_scx_target.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_scx_target.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label1
             // 
@@ -132,11 +135,14 @@
             // 
             // textBox_scx_patch
             // 
+            this.textBox_scx_patch.AllowDrop = true;
             this.textBox_scx_patch.Location = new System.Drawing.Point(59, 20);
             this.textBox_scx_patch.Name = "textBox_scx_patch";
             this.textBox_scx_patch.Size = new System.Drawing.Size(422, 21);
             this.textBox_scx_patch.TabIndex = 0;
             this.textBox_scx_patch.Text = "D:/VMShared/sg-phngrm-1.2-pc/game/src/patch.json";
+            this.textBox_scx_patch.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_scx_patch.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label2
             // 
@@ -163,11 +169,14 @@
             // 
             // textBox_scx_charset
             // 
+            this.textBox_scx_charset.AllowDrop = true;
             this.textBox_scx_charset.Location = new System.Drawing.Point(65, 20);
             this.textBox_scx_charset.Name = "textBox_scx_charset";
             this.textBox_scx_charset.Size = new System.Drawing.Size(416, 21);
             this.textBox_scx_charset.TabIndex = 12;
             this.textBox_scx_charset.Text = "R:/charset.utf8";
+            this.textBox_scx_charset.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_scx_charset.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label9
             // 
@@ -190,11 +199,14 @@
             // 
             // textBox_scx_export
             // 
+            this.textBox_scx_export.AllowDrop = true;
             this.textBox_scx_export.Location = new System.Drawing.Point(65, 47);
             this.textBox_scx_export.Name = "textBox_scx_export";
             this.textBox_scx_export.Size = new System.Drawing.Size(416, 21);
             this.textBox_scx_export.TabIndex = 9;
             this.textBox_scx_export.Text = "D:/Workspace/SG/script/";
+            this.textBox_scx_export.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_scx_export.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label8
             // 
@@ -232,6 +244,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pack";
             // 
+            // checkBox_mpk_pack_ignore_bak
+            // 
+            this.checkBox_mpk_pack_ignore_bak.AutoSize = true;
+            this.checkBox_mpk_pack_ignore_bak.Checked = true;
+            this.checkBox_mpk_pack_ignore_bak.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_mpk_pack_ignore_bak.Location = new System.Drawing.Point(472, 22);
+            this.checkBox_mpk_pack_ignore_bak.Name = "checkBox_mpk_pack_ignore_bak";
+            this.checkBox_mpk_pack_ignore_bak.Size = new System.Drawing.Size(90, 16);
+            this.checkBox_mpk_pack_ignore_bak.TabIndex = 10;
+            this.checkBox_mpk_pack_ignore_bak.Text = "Ignore .bak";
+            this.checkBox_mpk_pack_ignore_bak.UseVisualStyleBackColor = true;
+            // 
             // button_mpk_pack
             // 
             this.button_mpk_pack.Location = new System.Drawing.Point(487, 47);
@@ -253,11 +277,14 @@
             // 
             // textBox_mpk_pack_output
             // 
+            this.textBox_mpk_pack_output.AllowDrop = true;
             this.textBox_mpk_pack_output.Location = new System.Drawing.Point(59, 47);
             this.textBox_mpk_pack_output.Name = "textBox_mpk_pack_output";
             this.textBox_mpk_pack_output.Size = new System.Drawing.Size(422, 21);
             this.textBox_mpk_pack_output.TabIndex = 7;
             this.textBox_mpk_pack_output.Text = "G:/Steam/steamapps/common/SG_Phenogram/USRDIR/";
+            this.textBox_mpk_pack_output.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_mpk_pack_output.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label5
             // 
@@ -270,11 +297,14 @@
             // 
             // textBox_mpk_pack_input
             // 
+            this.textBox_mpk_pack_input.AllowDrop = true;
             this.textBox_mpk_pack_input.Location = new System.Drawing.Point(59, 20);
             this.textBox_mpk_pack_input.Name = "textBox_mpk_pack_input";
             this.textBox_mpk_pack_input.Size = new System.Drawing.Size(407, 21);
             this.textBox_mpk_pack_input.TabIndex = 5;
             this.textBox_mpk_pack_input.Text = "D:/Workspace/SG/script";
+            this.textBox_mpk_pack_input.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_mpk_pack_input.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // groupBox1
             // 
@@ -311,10 +341,13 @@
             // 
             // textBox_mpk_unpack_output
             // 
+            this.textBox_mpk_unpack_output.AllowDrop = true;
             this.textBox_mpk_unpack_output.Location = new System.Drawing.Point(59, 47);
             this.textBox_mpk_unpack_output.Name = "textBox_mpk_unpack_output";
             this.textBox_mpk_unpack_output.Size = new System.Drawing.Size(422, 21);
             this.textBox_mpk_unpack_output.TabIndex = 12;
+            this.textBox_mpk_unpack_output.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_mpk_unpack_output.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // label7
             // 
@@ -327,10 +360,13 @@
             // 
             // textBox_mpk_unpack_input
             // 
+            this.textBox_mpk_unpack_input.AllowDrop = true;
             this.textBox_mpk_unpack_input.Location = new System.Drawing.Point(59, 20);
             this.textBox_mpk_unpack_input.Name = "textBox_mpk_unpack_input";
             this.textBox_mpk_unpack_input.Size = new System.Drawing.Size(422, 21);
             this.textBox_mpk_unpack_input.TabIndex = 10;
+            this.textBox_mpk_unpack_input.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox_mpk_unpack_input.DragOver += new System.Windows.Forms.DragEventHandler(this.textBox_DragOver);
             // 
             // textBox_log
             // 
@@ -344,18 +380,6 @@
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox_log.Size = new System.Drawing.Size(588, 245);
             this.textBox_log.TabIndex = 1;
-            // 
-            // checkBox_mpk_pack_ignore_bak
-            // 
-            this.checkBox_mpk_pack_ignore_bak.AutoSize = true;
-            this.checkBox_mpk_pack_ignore_bak.Checked = true;
-            this.checkBox_mpk_pack_ignore_bak.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_mpk_pack_ignore_bak.Location = new System.Drawing.Point(472, 22);
-            this.checkBox_mpk_pack_ignore_bak.Name = "checkBox_mpk_pack_ignore_bak";
-            this.checkBox_mpk_pack_ignore_bak.Size = new System.Drawing.Size(90, 16);
-            this.checkBox_mpk_pack_ignore_bak.TabIndex = 10;
-            this.checkBox_mpk_pack_ignore_bak.Text = "Ignore .bak";
-            this.checkBox_mpk_pack_ignore_bak.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
