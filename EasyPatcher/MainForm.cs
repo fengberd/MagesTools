@@ -27,11 +27,12 @@ namespace EasyPatcher
             Text += " - " + meta["name"];
             textBox_path.Text = meta["default_path"];
             pictureBox_main.ImageLocation = Path.GetFullPath(PATCH_DIR + meta["image"]);
+            textBox_log.Text = (meta["notice"] as string).Replace("\n", Environment.NewLine);
         }
 
         public void Log(string data)
         {
-            Invoke(new Action(() => textBox_log.AppendText(DateTime.Now.ToString() + " " + data + "\n")));
+            Invoke(new Action(() => textBox_log.AppendText(DateTime.Now.ToString() + " " + data + Environment.NewLine)));
         }
 
         public void Oops(string e)
@@ -195,6 +196,35 @@ namespace EasyPatcher
                 }
                 Invoke(new Action(() => button_patch.Enabled = true));
             });
+        }
+
+        private void button_delete_bak_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var usrdir = Path.Combine(textBox_path.Text, "USRDIR");
+                if (!Directory.Exists(usrdir))
+                {
+                    Oops("USRDIR 不存在, 请检查你的目录设置.");
+                    return;
+                }
+                var bakdir = usrdir + ".bak";
+                if (!Directory.Exists(bakdir))
+                {
+                    Oops("未找到备份文件夹.");
+                    return;
+                }
+                if (MessageBox.Show("确认要删除备份文件夹吗?\n删除后要撤销补丁必须重新验证游戏完整性\n并且可能对未来的补丁覆盖造成影响", "操作确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                {
+                    return;
+                }
+                Directory.Delete(bakdir, true);
+                MessageBox.Show("备份文件夹已删除", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Oops(ex.ToString());
+            }
         }
 
         private void button_save_Click(object sender, EventArgs e)

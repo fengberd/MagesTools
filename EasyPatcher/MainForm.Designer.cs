@@ -37,12 +37,14 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.linkLabel_version = new System.Windows.Forms.LinkLabel();
             this.pictureBox_main = new System.Windows.Forms.PictureBox();
+            this.button_delete_bak = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_main)).BeginInit();
             this.SuspendLayout();
             // 
             // button_patch
             // 
-            this.button_patch.Location = new System.Drawing.Point(347, 39);
+            this.button_patch.Font = new System.Drawing.Font("宋体", 9F);
+            this.button_patch.Location = new System.Drawing.Point(266, 39);
             this.button_patch.Name = "button_patch";
             this.button_patch.Size = new System.Drawing.Size(75, 23);
             this.button_patch.TabIndex = 2;
@@ -125,11 +127,22 @@
             this.pictureBox_main.TabIndex = 6;
             this.pictureBox_main.TabStop = false;
             // 
+            // button_delete_bak
+            // 
+            this.button_delete_bak.Location = new System.Drawing.Point(347, 39);
+            this.button_delete_bak.Name = "button_delete_bak";
+            this.button_delete_bak.Size = new System.Drawing.Size(75, 23);
+            this.button_delete_bak.TabIndex = 7;
+            this.button_delete_bak.Text = "删除备份";
+            this.button_delete_bak.UseVisualStyleBackColor = true;
+            this.button_delete_bak.Click += new System.EventHandler(this.button_delete_bak_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 310);
+            this.Controls.Add(this.button_delete_bak);
             this.Controls.Add(this.pictureBox_main);
             this.Controls.Add(this.linkLabel_version);
             this.Controls.Add(this.button_select);
@@ -160,5 +173,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.LinkLabel linkLabel_version;
         private System.Windows.Forms.PictureBox pictureBox_main;
+        private System.Windows.Forms.Button button_delete_bak;
     }
 }
